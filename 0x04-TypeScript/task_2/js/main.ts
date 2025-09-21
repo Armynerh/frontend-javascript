@@ -1,52 +1,69 @@
-
-interface Student {
-  firstName: string;
-  lastName: string;
-  age: number;
-  location: string;
+// DirectorInterface
+interface DirectorInterface {
+  workFromHome(): string;
+  getCoffeeBreak(): string;
+  workDirectorTasks(): string;
 }
 
-// 2. Create two students
-const student1: Student = {
-  firstName: "Alice",
-  lastName: "Johnson",
-  age: 21,
-  location: "Toronto",
-};
+// TeacherInterface
+interface TeacherInterface {
+  workFromHome(): string;
+  getCoffeeBreak(): string;
+  workTeacherTasks(): string;
+}
 
-const student2: Student = {
-  firstName: "Bob",
-  lastName: "Smith",
-  age: 23,
-  location: "Vancouver",
-};
+// Director class
+class Director implements DirectorInterface {
+  workFromHome(): string {
+    return "Working from home";
+  }
+  getCoffeeBreak(): string {
+    return "Getting a coffee break";
+  }
+  workDirectorTasks(): string {
+    return "Getting to director tasks";
+  }
+}
 
-// 3. Add them into an array
-const studentsList: Student[] = [student1, student2];
+// Teacher class
+class Teacher implements TeacherInterface {
+  workFromHome(): string {
+    return "Cannot work from home";
+  }
+  getCoffeeBreak(): string {
+    return "Cannot have a break";
+  }
+  workTeacherTasks(): string {
+    return "Getting to work";
+  }
+}
 
-// 4. Render a table with firstName + location
-const table: HTMLTableElement = document.createElement("table");
-const tableHead: HTMLTableSectionElement = table.createTHead();
-const headerRow: HTMLTableRowElement = tableHead.insertRow();
+// createEmployee function
+function createEmployee(salary: number | string): Director | Teacher {
+  if (typeof salary === "string") {
+    salary = parseInt(salary);
+  }
+  if (salary < 500) {
+    return new Teacher();
+  } else {
+    return new Director();
+  }
+}
 
-const headerCell1: HTMLTableCellElement = document.createElement("th");
-headerCell1.textContent = "First Name";
-const headerCell2: HTMLTableCellElement = document.createElement("th");
-headerCell2.textContent = "Location";
+// Exported type predicate function
+export function isDirector(employee: Director | Teacher): employee is Director {
+  return (employee as Director).workDirectorTasks !== undefined;
+}
 
-headerRow.appendChild(headerCell1);
-headerRow.appendChild(headerCell2);
+// executeWork function
+export function executeWork(employee: Director | Teacher): string {
+  if (isDirector(employee)) {
+    return employee.workDirectorTasks();
+  } else {
+    return employee.workTeacherTasks();
+  }
+}
 
-const tableBody: HTMLTableSectionElement = document.createElement("tbody");
-
-studentsList.forEach((student) => {
-  const row: HTMLTableRowElement = tableBody.insertRow();
-  const cell1: HTMLTableCellElement = row.insertCell();
-  cell1.textContent = student.firstName;
-
-  const cell2: HTMLTableCellElement = row.insertCell();
-  cell2.textContent = student.location;
-});
-
-table.appendChild(tableBody);
-document.body.appendChild(table);
+// Example usage
+console.log(executeWork(createEmployee(200)));   // Getting to work
+console.log(executeWork(createEmployee(1000)));  // Getting to director tasks
