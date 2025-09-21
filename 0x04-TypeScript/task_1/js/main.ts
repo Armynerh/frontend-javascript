@@ -1,30 +1,52 @@
-// task_1/js/main.ts
 
-interface Teacher {
-  readonly firstName: string;        // readonly → only set at initialization
-  readonly lastName: string;         // readonly → only set at initialization
-  fullTimeEmployee: boolean;         // mandatory
-  location: string;                  // mandatory
-  yearsOfExperience?: number;        // optional
-  [propName: string]: any;           // allow any other attributes
+interface Student {
+  firstName: string;
+  lastName: string;
+  age: number;
+  location: string;
 }
 
-// Example usage
-const teacher1: Teacher = {
-  firstName: 'John',
-  lastName: 'Doe',
-  fullTimeEmployee: true,
-  location: 'London',
+// 2. Create two students
+const student1: Student = {
+  firstName: "Alice",
+  lastName: "Johnson",
+  age: 21,
+  location: "Toronto",
 };
 
-const teacher2: Teacher = {
-  firstName: 'Jane',
-  lastName: 'Smith',
-  fullTimeEmployee: false,
-  location: 'New York',
-  yearsOfExperience: 5,
-  contract: false,   // extra property allowed
+const student2: Student = {
+  firstName: "Bob",
+  lastName: "Smith",
+  age: 23,
+  location: "Vancouver",
 };
 
-console.log(teacher1);
-console.log(teacher2);
+// 3. Add them into an array
+const studentsList: Student[] = [student1, student2];
+
+// 4. Render a table with firstName + location
+const table: HTMLTableElement = document.createElement("table");
+const tableHead: HTMLTableSectionElement = table.createTHead();
+const headerRow: HTMLTableRowElement = tableHead.insertRow();
+
+const headerCell1: HTMLTableCellElement = document.createElement("th");
+headerCell1.textContent = "First Name";
+const headerCell2: HTMLTableCellElement = document.createElement("th");
+headerCell2.textContent = "Location";
+
+headerRow.appendChild(headerCell1);
+headerRow.appendChild(headerCell2);
+
+const tableBody: HTMLTableSectionElement = document.createElement("tbody");
+
+studentsList.forEach((student) => {
+  const row: HTMLTableRowElement = tableBody.insertRow();
+  const cell1: HTMLTableCellElement = row.insertCell();
+  cell1.textContent = student.firstName;
+
+  const cell2: HTMLTableCellElement = row.insertCell();
+  cell2.textContent = student.location;
+});
+
+table.appendChild(tableBody);
+document.body.appendChild(table);
