@@ -1,21 +1,30 @@
-// teacher.ts
+// task_1/js/main.ts
 
 interface Teacher {
-  readonly firstName: string;        // only settable at initialization
-  readonly lastName: string;         // only settable at initialization
-  fullTimeEmployee: boolean;         // always defined
+  readonly firstName: string;        // readonly → only set at initialization
+  readonly lastName: string;         // readonly → only set at initialization
+  fullTimeEmployee: boolean;         // mandatory
+  location: string;                  // mandatory
   yearsOfExperience?: number;        // optional
-  location: string;                  // always defined
-  [propName: string]: any;           // allow any extra properties
+  [propName: string]: any;           // allow any other attributes
 }
 
 // Example usage
-const teacher3: Teacher = {
+const teacher1: Teacher = {
   firstName: 'John',
   lastName: 'Doe',
-  fullTimeEmployee: false,
+  fullTimeEmployee: true,
   location: 'London',
-  contract: false,   // extra attribute allowed
 };
 
-console.log(teacher3);
+const teacher2: Teacher = {
+  firstName: 'Jane',
+  lastName: 'Smith',
+  fullTimeEmployee: false,
+  location: 'New York',
+  yearsOfExperience: 5,
+  contract: false,   // extra property allowed
+};
+
+console.log(teacher1);
+console.log(teacher2);
