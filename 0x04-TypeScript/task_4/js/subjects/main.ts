@@ -4,7 +4,7 @@
 /// <reference path="./React.ts" />
 /// <reference path="./Java.ts" />
 
-import Subjects = Subjects; // Import the namespace
+
 
 // Create teacher object with experience in C
 export const cTeacher: Subjects.Teacher = {
