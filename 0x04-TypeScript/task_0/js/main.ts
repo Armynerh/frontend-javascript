@@ -1,4 +1,4 @@
-// task_2/js/main.ts
+
 
 // DirectorInterface
 interface DirectorInterface {
