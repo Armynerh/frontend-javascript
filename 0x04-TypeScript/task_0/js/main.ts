@@ -1,5 +1,3 @@
-
-
 // DirectorInterface
 interface DirectorInterface {
   workFromHome(): string;
@@ -52,8 +50,8 @@ function createEmployee(salary: number | string): Director | Teacher {
   }
 }
 
-// Type predicate for Director
-function isDirector(employee: Director | Teacher): employee is Director {
+// Exported type predicate function
+export function isDirector(employee: Director | Teacher): employee is Director {
   return (employee as Director).workDirectorTasks !== undefined;
 }
 
