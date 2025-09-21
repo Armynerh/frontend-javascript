@@ -4,17 +4,17 @@
 /// <reference path="./subjects/React.ts" />
 /// <reference path="./subjects/Java.ts" />
 
-// Create teacher object with experience in C
-export const cTeacher: Subjects.Teacher = {
+// Teacher object
+const cTeacher: Subjects.Teacher = {
   firstName: "Guillaume",
   lastName: "Salva",
   experienceTeachingC: 10
 };
 
-// Create and export subject instances
-export const cpp = new Subjects.Cpp();
-export const java = new Subjects.Java();
-export const react = new Subjects.React();
+// Subject instances (without namespace prefix)
+const cpp = new Cpp();
+const java = new Java();
+const react = new React();
 
 // Cpp
 console.log("C++");
@@ -33,3 +33,6 @@ console.log("React");
 react.setTeacher(cTeacher);
 console.log(react.getRequirements());
 console.log(react.getAvailableTeacher());
+
+// Export constants if needed
+export { cpp, java, react, cTeacher };
