@@ -1,4 +1,4 @@
-
+// teacher.ts
 
 interface Teacher {
   readonly firstName: string;        // only settable at initialization
