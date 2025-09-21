@@ -1,69 +1,32 @@
-// DirectorInterface
-interface DirectorInterface {
-  workFromHome(): string;
-  getCoffeeBreak(): string;
-  workDirectorTasks(): string;
+// Define branded interfaces
+export interface MajorCredits {
+  credits: number;
+  _brand: "major"; // unique identifier for branding
 }
 
-// TeacherInterface
-interface TeacherInterface {
-  workFromHome(): string;
-  getCoffeeBreak(): string;
-  workTeacherTasks(): string;
+export interface MinorCredits {
+  credits: number;
+  _brand: "minor"; // unique identifier for branding
 }
 
-// Director class
-class Director implements DirectorInterface {
-  workFromHome(): string {
-    return "Working from home";
-  }
-  getCoffeeBreak(): string {
-    return "Getting a coffee break";
-  }
-  workDirectorTasks(): string {
-    return "Getting to director tasks";
-  }
+// Function to sum major credits
+export function sumMajorCredits(
+  subject1: MajorCredits,
+  subject2: MajorCredits
+): MajorCredits {
+  return {
+    credits: subject1.credits + subject2.credits,
+    _brand: "major"
+  };
 }
 
-// Teacher class
-class Teacher implements TeacherInterface {
-  workFromHome(): string {
-    return "Cannot work from home";
-  }
-  getCoffeeBreak(): string {
-    return "Cannot have a break";
-  }
-  workTeacherTasks(): string {
-    return "Getting to work";
-  }
+// Function to sum minor credits
+export function sumMinorCredits(
+  subject1: MinorCredits,
+  subject2: MinorCredits
+): MinorCredits {
+  return {
+    credits: subject1.credits + subject2.credits,
+    _brand: "minor"
+  };
 }
-
-// createEmployee function
-function createEmployee(salary: number | string): Director | Teacher {
-  if (typeof salary === "string") {
-    salary = parseInt(salary);
-  }
-  if (salary < 500) {
-    return new Teacher();
-  } else {
-    return new Director();
-  }
-}
-
-// Exported type predicate function
-export function isDirector(employee: Director | Teacher): employee is Director {
-  return (employee as Director).workDirectorTasks !== undefined;
-}
-
-// executeWork function
-export function executeWork(employee: Director | Teacher): string {
-  if (isDirector(employee)) {
-    return employee.workDirectorTasks();
-  } else {
-    return employee.workTeacherTasks();
-  }
-}
-
-// Example usage
-console.log(executeWork(createEmployee(200)));   // Getting to work
-console.log(executeWork(createEmployee(1000)));  // Getting to director tasks
